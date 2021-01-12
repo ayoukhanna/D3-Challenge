@@ -43,4 +43,36 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     var bottomAxis = d3.axisBottom(xLinearScale);
     var leftAxis = d3.axisLeft(yLinearScale);
 
+    //Append Axes to the chart
+    chartGroup.append("g")
+      .attr("transform", `translate(0, ${height})`)
+      .call(bottomAxis);
+
+    chartGroup.append("g")
+      .call(leftAxis);
+
+    //Create Circles
+    var circlesGroup = chartGroup.selectAll("circle")
+    .data(healthData)
+    .enter()
+    .append("circle")
+    .attr("cx", d => xLinearScale(d.poverty))
+    .attr("cy", d => yLinearScale(d.healthcare))
+    .attr("r", "15")
+    .attr("fill", "teal")
+    .attr("opacity", ".5");
+
+
+    var abbrGroup = chartGroup.selectAll("text.abbr")
+    .data(healthData)
+    .enter()
+    .append("text")
+    .attr("class","abbr")
+    .text(d=>d.abbr)
+    .attr("dx", d => xLinearScale(d.poverty))
+    .attr("dy", d => yLinearScale(d.healthcare))
+    .style("text-anchor","middle")
+    .style("font-size","10px");
+
+
     
