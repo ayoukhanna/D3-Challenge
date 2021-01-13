@@ -75,4 +75,15 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
     .style("font-size","10px");
 
 
+    //Initialize tool tip
+    var toolTip = d3.tip()
+      .attr("class", "tooltip")
+      .offset([80, -60])
+      .html(function(d) {
+        return (`Poverty: ${d.poverty}<br>Healthcare:${d.healthcare}`);
+      });
+
+    //Create tooltip in the chart
+    chartGroup.call(toolTip);
+
     
